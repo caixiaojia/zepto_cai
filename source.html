@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Source Page</title>
+    <script src="zepto.js"></script>
+    <script src="zepto_bak.js"></script>
+</head>
+<body>
+<div>01</div>
+<div>02</div>
+<div>03</div>
+<div>04</div>
+<script>
+
+//$('div').forEach(function (p1, p2, p3) { console.log(p1) })
+//$$('div').forEach(function (p1, p2, p3) { console.log(p1) })
+//    console.log($$('div'))
+
+
+    var likeArray = function () {
+        this[0] = 'div'
+        this[1] = 'div'
+        this[2] = 'div'
+        this[3] = 'div'
+        this[4] = 'div'
+        this[5] = 'div'
+        this.length = 6
+    }
+
+    likeArray.prototype.forEach = [].forEach
+
+    var likeArrayInstance = new likeArray()
+
+    likeArrayInstance.forEach(function (item, index, arr) {
+      console.log(item)
+    })
+</script>
+</body>
+</html>
