@@ -11,7 +11,8 @@ var Cai = (function() {
     every = emptyArray.every,
     simpleSelectorRE = /^[\w-]*$/,
     class2type={},
-    toString=class2type.toString
+    toString=class2type.toString,
+    tempParent=document.createElement('div')
 
   function Z(dom, selector) {
     var i, len = dom ? dom.length : 0
@@ -83,7 +84,21 @@ var Cai = (function() {
     return zepto.Z(dom, selector)
   }
 
-  zepto.matches = function (elements, selector) {
+  zepto.matches = function (element, selector) {
+    if (!element || !selector || element.nodeType != 1) {
+      return false
+    }
+
+    var matchesSelector = element.matches || element.webkitMatchesSelector || element.mozMatchesSelector || element.oMatchesSelector ||
+      element.matchesSelector
+
+    if (matchesSelector) return matchesSelector.call(element, selector)
+
+    var match, parent = element.parentNode, temp = !parent
+    if (temp) (parent = tempParent).append(element)
+    match = ~zepto.qsa(tempParent, element).indexOf(element)
+    temp && tempParent.remove(element)
+    return match
   }
 
   $ = function (selector, context) {
